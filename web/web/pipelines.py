@@ -10,13 +10,17 @@ import re
 class WebPipeline(object):
 
     def open_spider(self, spider):
-        self.file = open('output/%s-%s.csv' % (spider.name, time.strftime("%Y-%m-%d-%H%M")), 'w+')
-        self.file.write('name,food,openings\n')
+        #self.file = open('output/%s-%s.csv' % (spider.name, time.strftime("%Y-%m-%d-%H%M")), 'w+')
+        self.file = open('output/%s-%s.csv' % (spider.name, time.strftime("%Y-%m-%d-%H")), 'w+')
+        #self.file.write('name,food,openings\n')
+        self.file.write('name,email\n')
         
     def process_item(self, item, spider):
         self.file.write('"%s",' % (item['name'].encode('utf-8')))
-        self.file.write('"%s",' % (item['food'].encode('utf-8')))
-        self.file.write('"%s"\n' % (item['openings'].encode('utf-8')))
+        #self.file.write('"%s",' % (item['food'].encode('utf-8')))
+        #self.file.write('"%s"\n' % (item['openings'].encode('utf-8')))
+        
+        self.file.write('"%s"\n' % (item['email'].encode('utf-8')))
         
         self.file.flush()
         return item

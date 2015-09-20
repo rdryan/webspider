@@ -13,4 +13,5 @@ class WebItem(scrapy.Item):
     name = scrapy.Field()
     food = scrapy.Field()
     openings = scrapy.Field()
+    email = scrapy.Field()
     #pass

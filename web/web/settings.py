@@ -52,6 +52,7 @@ NEWSPIDER_MODULE = 'web.spiders'
 DOWNLOADER_MIDDLEWARES = {
 #    'web.middlewares.MyCustomDownloaderMiddleware': 543,
     'web.middlewares.ProxyMiddleware': 100,
+#    'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware': 600,
 }
 
 # Enable or disable extensions
