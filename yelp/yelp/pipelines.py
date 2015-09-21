@@ -15,14 +15,17 @@ class YelpPipeline(object):
         
     def process_item(self, item, spider):
         #self.file.write('"%s",' % (item['name'].encode('utf-8')))
-        self.file.write('"%s",' % (item['name']))
+        self.file.write('"%s",' % (item['name'].encode('utf-8')))
+        self.file.write('"%s",' % (item['category'].encode('utf-8')))
         self.file.write('"%s",' % (item['ratevalue']))
         self.file.write('"%s",' % (item['reviewcount']))
-        self.file.write('"%s",' % (item['streetaddr']))
+        self.file.write('"%s",' % (item['address'].encode('utf-8')))
         self.file.write('"%s",' % (item['postcode']))
-        self.file.write('"%s",' % (item['addrlocality']))
+        self.file.write('"%s",' % (item['city'].encode('utf-8')))
+        self.file.write('"%s",' % (item['area'].encode('utf-8')))
         self.file.write('"%s",' % (item['telephone']))
-        self.file.write('"%s\n"' % (item['price']))
+        self.file.write('"%s",' % (item['website']))
+        self.file.write('"%s"\n' % (item['price'].encode('utf-8')))
         
         self.file.flush()
         return item

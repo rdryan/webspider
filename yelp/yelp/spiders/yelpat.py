@@ -11,6 +11,13 @@ class YelpatSpider(scrapy.Spider):
     start_urls = (
         #'http://www.yelp.at/',
         'http://www.yelp.at/search?find_loc=wien&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Graz&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Linz&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Klagenfurt&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Salzburg&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Innsbruck&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Wels&start=0&attrs=RestaurantsDelivery',        
+        #'http://www.yelp.at/search?find_loc=Villach&start=0&attrs=RestaurantsDelivery',        
     )
 
     def parse(self, response):
@@ -22,47 +29,48 @@ class YelpatSpider(scrapy.Spider):
         for info in infos:
             name = info.xpath('text()').extract()
 
-            if 'Vietthao' in name:
+            #if 'Vietthao' in name:
+            if True:
                 url = ''.join(info.xpath('@href').extract()).strip()
                 print url
-                #print info.xpath('text()').extract()
                 print name
 
                 url_i = "http://%s%s" %(urlparse(response.url).hostname, url)
                 yield Request(url_i, callback=self.parse_items)
                 
         
-        #    item['name'] = ''.join(info.xpath('li[@class="yd-jig-service-dl-info-name"]/a/text()').extract()).strip()
+        next = sel.xpath('//a[@class="page-option prev-next next"]/@href').extract()
+        for i in next:
+            url_i = "http://%s%s" %(urlparse(response.url).hostname, i)
+            yield Request(url_i, callback=self.parse)
         
-        #for name in names:
-            #print '======== name:' , item['name'].encode('utf-8')
-            #print '     === open:' , item['openings'].encode('utf-8')
-
-            #yield item
-
     def parse_items(self, response):
         sel = Selector(response)
         item = YelpItem()
 
         item['name'] = ''.join(sel.xpath('//h1[@class="biz-page-title embossed-text-white shortenough"]//text()').extract()).strip()
         
+        item['category'] = ''.join(sel.xpath('//span[@class="category-str-list"]//a//text()').extract()).strip()
+        
         item['ratevalue'] = ''.join(sel.xpath('//div[@class="biz-page-header-left"]//meta[@itemprop="ratingValue"]//@content').extract()).strip()
         
         item['reviewcount'] = ''.join(sel.xpath('//span[@itemprop="reviewCount"]//text()').extract()).strip()
 
-        item['streetaddr'] = ''.join(sel.xpath('//span[@itemprop="streetAddress"]//text()').extract()).strip()
+        item['address'] = ''.join(sel.xpath('//span[@itemprop="streetAddress"]//text()').extract()).strip()
 
         item['postcode'] = ''.join(sel.xpath('//span[@itemprop="postalCode"]//text()').extract()).strip()
 
-        item['addrlocality'] = ''.join(sel.xpath('//span[@itemprop="addressLocality"]//text()').extract()).strip()
+        item['city'] = ''.join(sel.xpath('//span[@itemprop="addressLocality"]//text()').extract()).strip()
+        
+        item['area'] = ''.join(sel.xpath('//span[@class="neighborhood-str-list"]//text()').extract()).strip()
         
         item['telephone'] = ''.join(sel.xpath('//span[@itemprop="telephone"]//text()').extract()).strip()
         
-        #item['price'] = ''.join(sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()).strip()
-        item['price'] = sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()
+        item['website'] = ''.join(sel.xpath('//div[@class="biz-website"]//a//text()').extract())
         
-        #item['website'] = ''.join(sel.xpath('//span[@itemprop="WebSite"]//text()').extract())
-        #print "    ====", item['website']
+        item['price'] = ''.join(sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()).strip()
+        #item['price'] = sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()
+        
         
         
         #pass

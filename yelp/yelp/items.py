@@ -11,12 +11,14 @@ import scrapy
 class YelpItem(scrapy.Item):
     # define the fields for your item here like:
     name = scrapy.Field()
+    category = scrapy.Field()
     ratevalue = scrapy.Field()
     reviewcount = scrapy.Field()
-    streetaddr = scrapy.Field()
+    address = scrapy.Field()
     postcode = scrapy.Field()
-    addrlocality = scrapy.Field()
+    city = scrapy.Field()
+    area = scrapy.Field()
     telephone = scrapy.Field()
-    price = scrapy.Field()
     website = scrapy.Field()
+    price = scrapy.Field()
     #pass
