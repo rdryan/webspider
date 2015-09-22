@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+##################################################
+# rdryan@sina.com
+# Copyright (c) 2015
+##################################################
 import scrapy
 from scrapy.selector import Selector
 from scrapy.http import Request

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+##################################################
+# rdryan@sina.com
+# Copyright (c) 2015
+##################################################
 
 # Define here the models for your scraped items
 #

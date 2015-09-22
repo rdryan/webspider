@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 import time
+##################################################
+# rdryan@sina.com
+# Copyright (c) 2015
+##################################################
 
 # Define your item pipelines here
 #
@@ -11,7 +15,7 @@ class YelpPipeline(object):
         
     def open_spider(self, spider):
         self.file = open('output/%s-%s.csv' % (spider.name, time.strftime("%Y-%m-%d-%H%M")), 'w+')
-        self.file.write('Head Title\n')
+        self.file.write('name,category,ratevalue,reviewcount,address,postcode,city,area,telephone,website,price\n')
         
     def process_item(self, item, spider):
         #self.file.write('"%s",' % (item['name'].encode('utf-8')))
