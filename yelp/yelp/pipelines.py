@@ -29,7 +29,8 @@ class YelpPipeline(object):
         self.file.write('"%s",' % (item['area'].encode('utf-8')))
         self.file.write('"%s",' % (item['telephone']))
         self.file.write('"%s",' % (item['website']))
-        self.file.write('"%s"\n' % (item['price'].encode('utf-8')))
+        self.file.write('"%s",' % (item['price'].encode('utf-8')))
+        self.file.write('"%s"\n' % (item['url']))
         
         self.file.flush()
         return item

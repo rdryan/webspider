@@ -15,13 +15,13 @@ class YelpatSpider(scrapy.Spider):
     start_urls = (
         #'http://www.yelp.at/',
         'http://www.yelp.at/search?find_loc=wien&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Graz&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Linz&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Klagenfurt&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Salzburg&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Innsbruck&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Wels&start=0&attrs=RestaurantsDelivery',        
-        #'http://www.yelp.at/search?find_loc=Villach&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Graz&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Linz&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Klagenfurt&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Salzburg&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Innsbruck&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Wels&start=0&attrs=RestaurantsDelivery',        
+        'http://www.yelp.at/search?find_loc=Villach&start=0&attrs=RestaurantsDelivery',        
     )
 
     def parse(self, response):
@@ -74,8 +74,8 @@ class YelpatSpider(scrapy.Spider):
         
         item['price'] = ''.join(sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()).strip()
         #item['price'] = sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()
-        
-        
+       
+        item['url'] = response.url
         
         #pass
         yield item
