@@ -26,21 +26,22 @@ class YelpatSpider(scrapy.Spider):
 
     def parse(self, response):
         sel = Selector(response)
-        #item = YelpItem()
         infos = sel.xpath('//a[@class="biz-name"]')
         
         
         for info in infos:
-            name = info.xpath('text()').extract()
+            name = ''.join(info.xpath('text()').extract()).strip()
 
             #if 'Vietthao' in name:
             if True:
                 url = ''.join(info.xpath('@href').extract()).strip()
-                print url
-                print name
+                #print url
+                #print name
+                item = YelpItem()
 
+                item['name'] = name
                 url_i = "http://%s%s" %(urlparse(response.url).hostname, url)
-                yield Request(url_i, callback=self.parse_items)
+                yield Request(url_i, meta={'item': item}, callback=self.parse_items)
                 
         
         next = sel.xpath('//a[@class="page-option prev-next next"]/@href').extract()
@@ -50,9 +51,10 @@ class YelpatSpider(scrapy.Spider):
         
     def parse_items(self, response):
         sel = Selector(response)
-        item = YelpItem()
+        #item = YelpItem()
+        item = response.meta['item']
 
-        item['name'] = ''.join(sel.xpath('//h1[@class="biz-page-title embossed-text-white shortenough"]//text()').extract()).strip()
+        #item['name'] = ''.join(sel.xpath('//h1[@class="biz-page-title embossed-text-white shortenough"]//text()').extract()).strip()
         
         item['category'] = ''.join(sel.xpath('//span[@class="category-str-list"]//a//text()').extract()).strip()
         
@@ -70,10 +72,9 @@ class YelpatSpider(scrapy.Spider):
         
         item['telephone'] = ''.join(sel.xpath('//span[@itemprop="telephone"]//text()').extract()).strip()
         
-        item['website'] = ''.join(sel.xpath('//div[@class="biz-website"]//a//text()').extract())
+        item['website'] = ''.join(sel.xpath('//div[@class="biz-website"]//a//text()').extract()).strip()
         
         item['price'] = ''.join(sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()).strip()
-        #item['price'] = sel.xpath('//dd[@class="nowrap price-description"]//text()').extract()
        
         item['url'] = response.url
         
