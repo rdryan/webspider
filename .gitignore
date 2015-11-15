@@ -1,0 +1,8 @@
+info/.scrapy/
+info/info/__init_.pyc
+info/info/items.pyc
+info/info/pipelines.pyc
+info/info/settings.pyc
+info/info/spiders/__init__.pyc
+info/info/spiders/a114chn.pyc
+info/info/spiders/ebnew_spider.pyc
