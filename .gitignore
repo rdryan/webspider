@@ -6,3 +6,8 @@ info/info/settings.pyc
 info/info/spiders/__init__.pyc
 info/info/spiders/a114chn.pyc
 info/info/spiders/ebnew_spider.pyc
+
+einfo/output/
+web/output/
+yelp/output/
+
