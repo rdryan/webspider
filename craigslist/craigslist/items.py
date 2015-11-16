@@ -11,4 +11,10 @@ import scrapy
 class CraigslistItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    id = scrapy.Field()
+    content = scrapy.Field()
+    phoneNumber = scrapy.Field()
+
+    image_url = scrapy.Field()
+    
     pass
