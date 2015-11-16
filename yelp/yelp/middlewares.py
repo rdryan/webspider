@@ -6,7 +6,7 @@ class ProxyMiddleware(object):
     # overwrite process request
     def process_request(self, request, spider):
         # Set the location of the proxy
-        request.meta['proxy'] = "http://localhost:8087"
+        #request.meta['proxy'] = "http://localhost:8087"
  
         # Use the following lines if your proxy requires authentication
         proxy_user_pass = "USERNAME:PASSWORD"
