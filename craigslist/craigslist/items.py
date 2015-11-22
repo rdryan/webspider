@@ -13,7 +13,7 @@ class CraigslistItem(scrapy.Item):
     # name = scrapy.Field()
     id = scrapy.Field()
     content = scrapy.Field()
-    phoneNumber = scrapy.Field()
+    phone_num = scrapy.Field()
 
     image_url = scrapy.Field()
     

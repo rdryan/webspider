@@ -3,6 +3,7 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
+from scrapy.http import Request
 from craigslist.items import CraigslistItem
 from scrapy.http import Request
 from urlparse import urlparse
@@ -113,6 +114,6 @@ class CraigslistSpider(CrawlSpider):
         #if len(phoneNumber) == 0:
         #    return
         
-        item['phoneNumber'] = phoneNumber
+        item['phone_num'] = phoneNumber
         yield item
 
