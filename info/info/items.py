@@ -10,6 +10,7 @@ import scrapy
 
 class InfoItem(scrapy.Item):
     # define the fields for your item here like:
+    #url = scrapy.Field()
+    contact = scrapy.Field()
     name = scrapy.Field()
-    #contact = scrapy.Field()
     pass
