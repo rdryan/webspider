@@ -7,6 +7,7 @@ from scrapy.http import Request
 from craigslist.items import CraigslistItem
 from scrapy.http import Request
 from urlparse import urlparse
+from selenium import webdriver
 import urllib
 import re
 
@@ -16,36 +17,45 @@ class CraigslistSpider(CrawlSpider):
     start_urls = (
         #'http://www.craigslist.org/',
         'http://sfbay.craigslist.org/search/fud?postedToday=1',
-        'http://losangeles.craigslist.org/search/fud?postedToday=1',
-        'http://newyork.craigslist.org/search/fud?postedToday=1',
-        'http://seattle.craigslist.org/search/fud?postedToday=1',
-        'http://chicago.craigslist.org/search/fud?postedToday=1',
-        'http://orangecounty.craigslist.org/search/fud?postedToday=1',
-        'http://sandiego.craigslist.org/search/fud?postedToday=1',
-        'http://washingtondc.craigslist.org/search/fud?postedToday=1',
-        'http://boston.craigslist.org/search/fud?postedToday=1',
-        'http://portland.craigslist.org/search/fud?postedToday=1',
-        'http://atlanta.craigslist.org/search/fud?postedToday=1',
-        'http://phoenix.craigslist.org/search/fud?postedToday=1',
-        'http://dallas.craigslist.org/search/fud?postedToday=1',
-        'http://denver.craigslist.org/search/fud?postedToday=1',
-        'http://miami.craigslist.org/search/fud?postedToday=1',
-        'http://inlandempire.craigslist.org/search/fud?postedToday=1',
-        'http://sacramento.craigslist.org/search/fud?postedToday=1',
-        'http://austin.craigslist.org/search/fud?postedToday=1',
-        'http://minneapolis.craigslist.org/search/fud?postedToday=1',
-        'http://philadelphia.craigslist.org/search/fud?postedToday=1',
-        'http://newjersey.craigslist.org/search/fud?postedToday=1',
-        'http://houston.craigslist.org/search/fud?postedToday=1',
-        'http://tampa.craigslist.org/search/fud?postedToday=1',
-        'http://orlando.craigslist.org/search/fud?postedToday=1',
-        'http://raleigh.craigslist.org/search/fud?postedToday=1',
-        'http://cnj.craigslist.org/search/fud?postedToday=1',
-        'http://lasvegas.craigslist.org/search/fud?postedToday=1',
-        'http://baltimore.craigslist.org/search/fud?postedToday=1',
-        'http://charlotte.craigslist.org/search/fud?postedToday=1',
+        #'http://losangeles.craigslist.org/search/fud?postedToday=1',
+        #'http://newyork.craigslist.org/search/fud?postedToday=1',
+        #'http://seattle.craigslist.org/search/fud?postedToday=1',
+        #'http://chicago.craigslist.org/search/fud?postedToday=1',
+        #'http://orangecounty.craigslist.org/search/fud?postedToday=1',
+        #'http://sandiego.craigslist.org/search/fud?postedToday=1',
+        #'http://washingtondc.craigslist.org/search/fud?postedToday=1',
+        #'http://boston.craigslist.org/search/fud?postedToday=1',
+        #'http://portland.craigslist.org/search/fud?postedToday=1',
+        #'http://atlanta.craigslist.org/search/fud?postedToday=1',
+        #'http://phoenix.craigslist.org/search/fud?postedToday=1',
+        #'http://dallas.craigslist.org/search/fud?postedToday=1',
+        #'http://denver.craigslist.org/search/fud?postedToday=1',
+        #'http://miami.craigslist.org/search/fud?postedToday=1',
+        #'http://inlandempire.craigslist.org/search/fud?postedToday=1',
+        #'http://sacramento.craigslist.org/search/fud?postedToday=1',
+        #'http://austin.craigslist.org/search/fud?postedToday=1',
+        #'http://minneapolis.craigslist.org/search/fud?postedToday=1',
+        #'http://philadelphia.craigslist.org/search/fud?postedToday=1',
+        #'http://newjersey.craigslist.org/search/fud?postedToday=1',
+        #'http://houston.craigslist.org/search/fud?postedToday=1',
+        #'http://tampa.craigslist.org/search/fud?postedToday=1',
+        #'http://orlando.craigslist.org/search/fud?postedToday=1',
+        #'http://raleigh.craigslist.org/search/fud?postedToday=1',
+        #'http://cnj.craigslist.org/search/fud?postedToday=1',
+        #'http://lasvegas.craigslist.org/search/fud?postedToday=1',
+        #'http://baltimore.craigslist.org/search/fud?postedToday=1',
+        #'http://charlotte.craigslist.org/search/fud?postedToday=1',
     )
 
+    #use proxy, if not use, comment it out
+    service_args = [
+        '--proxy=127.0.0.1:8087',
+        '--proxy-type=https',
+        ]
+
+    driver = webdriver.PhantomJS(service_args=service_args)
+    #driver = webdriver.PhantomJS()
+    
     rules = (
             # Rule to go to each post
             Rule(LinkExtractor(
