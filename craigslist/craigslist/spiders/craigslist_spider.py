@@ -21,10 +21,10 @@ class CraigslistSpider(CrawlSpider):
         #'http://sfbay.craigslist.org/sfc/fud/5314826222.html',
         #'http://sfbay.craigslist.org/search/fud?postedToday=1',
         'http://losangeles.craigslist.org/search/fud?postedToday=1',
-        'http://newyork.craigslist.org/search/fud?postedToday=1',
-        'http://seattle.craigslist.org/search/fud?postedToday=1',
-        'http://chicago.craigslist.org/search/fud?postedToday=1',
-        'http://orangecounty.craigslist.org/search/fud?postedToday=1',
+        #'http://newyork.craigslist.org/search/fud?postedToday=1',
+        #'http://seattle.craigslist.org/search/fud?postedToday=1',
+        #'http://chicago.craigslist.org/search/fud?postedToday=1',
+        #'http://orangecounty.craigslist.org/search/fud?postedToday=1',
         #'http://sandiego.craigslist.org/search/fud?postedToday=1',
         #'http://washingtondc.craigslist.org/search/fud?postedToday=1',
         #'http://boston.craigslist.org/search/fud?postedToday=1',
@@ -170,8 +170,8 @@ class CraigslistSpider(CrawlSpider):
         #yield item
 
     def parseContact(self, response):
-        print response.url
-        print response.body
+        #print response.url
+        #print response.body
         
         sel = Selector(response)
         item = CraigslistItem()
@@ -179,8 +179,8 @@ class CraigslistSpider(CrawlSpider):
         email = sel.xpath('//a[@class="mailapp"]//text()').extract()
         item['email'] = email
 
-        #phoneNumber = sel.xpath('//a[@class="mailapp"]/text()').extract()
-        #item['phone_num'] = phoneNumber
+        phoneNumber = ''.join(sel.xpath('//a[@class="mobile-only replytellink"]/@href').extract()).replace("tel:","")
+        item['phone_num'] = phoneNumber
         
         return item
         
