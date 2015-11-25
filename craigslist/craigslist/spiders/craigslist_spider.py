@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy.spiders import CrawlSpider, Rule
+from scrapy.spiders import Spider, CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from scrapy.http import Request
@@ -8,15 +8,18 @@ from craigslist.items import CraigslistItem
 from scrapy.http import Request
 from urlparse import urlparse
 from selenium import webdriver
+from time import sleep
 import urllib
 import re
 
-class CraigslistSpider(CrawlSpider):
+#class CraigslistSpider(CrawlSpider):
+class CraigslistSpider(Spider):
     name = "craigslist_spider"
     allowed_domains = ["craigslist.org","craigslist.com","craigslist.com.cn","craigslist.hk"]
     start_urls = (
         #'http://www.craigslist.org/',
-        'http://sfbay.craigslist.org/search/fud?postedToday=1',
+        'http://sfbay.craigslist.org/sfc/fud/5314826222.html',
+        #'http://sfbay.craigslist.org/search/fud?postedToday=1',
         #'http://losangeles.craigslist.org/search/fud?postedToday=1',
         #'http://newyork.craigslist.org/search/fud?postedToday=1',
         #'http://seattle.craigslist.org/search/fud?postedToday=1',
@@ -49,13 +52,17 @@ class CraigslistSpider(CrawlSpider):
 
     #use proxy, if not use, comment it out
     service_args = [
-        '--proxy=127.0.0.1:8087',
+        #'--proxy=127.0.0.1:8087',
+        #'--proxy=xx.xx.13.122:3128',
         '--proxy-type=https',
+        '--load-images=false',
+        '--disk-cache=true',
         ]
 
     driver = webdriver.PhantomJS(service_args=service_args)
     #driver = webdriver.PhantomJS()
-    
+   
+    '''
     rules = (
             # Rule to go to each post
             Rule(LinkExtractor(
@@ -68,14 +75,31 @@ class CraigslistSpider(CrawlSpider):
             #        canonicalize=True,
             #    ), callback='parsePost'),
             
-            Rule(LinkExtractor(
-                    restrict_xpaths='//a[@class="button next"]',
-                    canonicalize=True,
-                ), follow=True),
+            #Rule(LinkExtractor(
+            #        restrict_xpaths='//a[@class="button next"]',
+            #        canonicalize=True,
+            #    ), follow=True),
            
                     
             )
-                    
+    '''
+    
+    def parse22222(self, response):
+        self.driver.get(response.url)
+        el = Selector(text=self.driver.page_source).xpath('//a[@class="hdrlnk"]/@href').extract()
+        requestList=[]
+        for r in el:
+            requestList.append(Request(response.urljoin(r), callback=self.parsePost))
+
+        el = Selector(text=self.driver.page_source).xpath('//a[@class="button next"]/@href').extract()
+        for r in el:
+            requestList.append(Request(response.urljoin(r)))
+
+        if len(requestList)>0:
+            return requestList
+        
+        self.driver.close()
+    
     def parsePhoneNumber(self, content):
         #m = re.findall("\d+-\d+-\d+",content)       
         #m += re.findall("\d+[-| |(|)|.|/]\d+[-| |(|)|.|/]\d+",content)       
@@ -100,30 +124,43 @@ class CraigslistSpider(CrawlSpider):
         return
     '''    
 
-    def parsePost(self, response):
-        sel = Selector(response)
+    #def parsePost(self, response):
+    def parse(self, response):
+        #sel = Selector(response)
+        self.driver.get(response.url)
         item = CraigslistItem()
         
-        #content = sel.xpath('//section[@id="postingbody"]/a[@class="showcontact"]/@href').extract()
+        #contact = sel.xpath('//a[@class="showcontact"]/@href').extract() 
+        #if len(contact) > 0:
+        #    url = "http://%s%s" %(urlparse(response.url).hostname, contact)
+        #    yield Request(url, callback=self.parsePost)
+        #print self.driver.page_source
+            
+        self.driver.find_element_by_xpath('//button[@class="reply_button js-only"]').click
+        
+        print self.driver.page_source.encode('utf-8')
+
+        self.driver.save_screenshot("./tttt.png")
+
+        el = Selector(text=self.driver.page_source)
+        email = el.xpath('//ul[@class="pad"]//a/text()').extract()
+        print email
+        self.driver.close()
+        
+        #print self.driver.page_source 
+        
+        #content = ''.join(sel.xpath('//section[@id="postingbody"]/text()').extract())
         #item["content"] = content.replace('\n','').replace('\s+',' ')
         
-        contact = sel.xpath('//a[@class="showcontact"]/@href').extract() 
-        if len(contact) > 0:
-            url = "http://%s%s" %(urlparse(response.url).hostname, contact)
-            yield Request(url, callback=self.parsePost)
-
-        
-        content = ''.join(sel.xpath('//section[@id="postingbody"]/text()').extract())
-        phoneNumber = self.parsePhoneNumber(content)
-        
-        image_url = sel.xpath('//figure[@class="iw oneimage"]//img/@src').extract()
+        #phoneNumber = self.parsePhoneNumber(content)
         #phoneNumber += self.parseImage(image_url)
-
-        item["image_url"] = image_url
+        #item['phone_num'] = phoneNumber
+        
+        #image_url = sel.xpath('//figure[@class="iw oneimage"]//img/@src').extract()
+        #item["image_url"] = image_url
         
         #if len(phoneNumber) == 0:
         #    return
         
-        item['phone_num'] = phoneNumber
-        yield item
+        #yield item
 
