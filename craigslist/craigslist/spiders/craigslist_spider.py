@@ -12,19 +12,19 @@ from time import sleep
 import urllib
 import re
 
-#class CraigslistSpider(CrawlSpider):
-class CraigslistSpider(Spider):
+class CraigslistSpider(CrawlSpider):
+#class CraigslistSpider(Spider):
     name = "craigslist_spider"
     allowed_domains = ["craigslist.org","craigslist.com","craigslist.com.cn","craigslist.hk"]
     start_urls = (
         #'http://www.craigslist.org/',
-        'http://sfbay.craigslist.org/sfc/fud/5314826222.html',
+        #'http://sfbay.craigslist.org/sfc/fud/5314826222.html',
         #'http://sfbay.craigslist.org/search/fud?postedToday=1',
-        #'http://losangeles.craigslist.org/search/fud?postedToday=1',
-        #'http://newyork.craigslist.org/search/fud?postedToday=1',
-        #'http://seattle.craigslist.org/search/fud?postedToday=1',
-        #'http://chicago.craigslist.org/search/fud?postedToday=1',
-        #'http://orangecounty.craigslist.org/search/fud?postedToday=1',
+        'http://losangeles.craigslist.org/search/fud?postedToday=1',
+        'http://newyork.craigslist.org/search/fud?postedToday=1',
+        'http://seattle.craigslist.org/search/fud?postedToday=1',
+        'http://chicago.craigslist.org/search/fud?postedToday=1',
+        'http://orangecounty.craigslist.org/search/fud?postedToday=1',
         #'http://sandiego.craigslist.org/search/fud?postedToday=1',
         #'http://washingtondc.craigslist.org/search/fud?postedToday=1',
         #'http://boston.craigslist.org/search/fud?postedToday=1',
@@ -59,10 +59,10 @@ class CraigslistSpider(Spider):
         '--disk-cache=true',
         ]
 
-    driver = webdriver.PhantomJS(service_args=service_args)
+    #driver = webdriver.PhantomJS(service_args=service_args)
     #driver = webdriver.PhantomJS()
    
-    '''
+    
     rules = (
             # Rule to go to each post
             Rule(LinkExtractor(
@@ -75,14 +75,14 @@ class CraigslistSpider(Spider):
             #        canonicalize=True,
             #    ), callback='parsePost'),
             
-            #Rule(LinkExtractor(
-            #        restrict_xpaths='//a[@class="button next"]',
-            #        canonicalize=True,
-            #    ), follow=True),
+            Rule(LinkExtractor(
+                    restrict_xpaths='//a[@class="button next"]',
+                    canonicalize=True,
+                ), follow=True),
            
                     
             )
-    '''
+    
     
     def parse22222(self, response):
         self.driver.get(response.url)
@@ -124,11 +124,13 @@ class CraigslistSpider(Spider):
         return
     '''    
 
-    #def parsePost(self, response):
-    def parse(self, response):
-        #sel = Selector(response)
-        self.driver.get(response.url)
-        item = CraigslistItem()
+
+    
+    def parsePost(self, response):
+    #def parse(self, response):
+        sel = Selector(response)
+        #self.driver.get(response.url)
+        #item = CraigslistItem()
         
         #contact = sel.xpath('//a[@class="showcontact"]/@href').extract() 
         #if len(contact) > 0:
@@ -136,18 +138,21 @@ class CraigslistSpider(Spider):
         #    yield Request(url, callback=self.parsePost)
         #print self.driver.page_source
             
-        self.driver.find_element_by_xpath('//button[@class="reply_button js-only"]').click
+        #self.driver.find_element_by_xpath('//button[@class="reply_button js-only"]').click
         
-        print self.driver.page_source.encode('utf-8')
+        #print self.driver.page_source.encode('utf-8')
 
-        self.driver.save_screenshot("./tttt.png")
+        #self.driver.save_screenshot("./tttt.png")
 
-        el = Selector(text=self.driver.page_source)
-        email = el.xpath('//ul[@class="pad"]//a/text()').extract()
-        print email
-        self.driver.close()
+        #el = Selector(text=self.driver.page_source)
+        #email = el.xpath('//ul[@class="pad"]//a/text()').extract()
+        #print email
+        #self.driver.close()
         
         #print self.driver.page_source 
+        
+        reply = ''.join(sel.xpath('//a[@id="replylink"]/@href').extract())
+        yield Request(response.urljoin(reply), callback=self.parseContact )
         
         #content = ''.join(sel.xpath('//section[@id="postingbody"]/text()').extract())
         #item["content"] = content.replace('\n','').replace('\s+',' ')
@@ -164,3 +169,18 @@ class CraigslistSpider(Spider):
         
         #yield item
 
+    def parseContact(self, response):
+        print response.url
+        print response.body
+        
+        sel = Selector(response)
+        item = CraigslistItem()
+        
+        email = sel.xpath('//a[@class="mailapp"]//text()').extract()
+        item['email'] = email
+
+        #phoneNumber = sel.xpath('//a[@class="mailapp"]/text()').extract()
+        #item['phone_num'] = phoneNumber
+        
+        return item
+        
