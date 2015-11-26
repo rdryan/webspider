@@ -7,8 +7,8 @@ from scrapy.http import Request
 from craigslist.items import CraigslistItem
 from scrapy.http import Request
 from urlparse import urlparse
-from selenium import webdriver
-from time import sleep
+#from selenium import webdriver
+#from time import sleep
 import urllib
 import re
 
