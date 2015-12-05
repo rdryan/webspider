@@ -16,35 +16,35 @@ class A114chnSpider(CrawlSpider):
     allowed_domains = ["114chn.com"]
     start_urls = (
         #'http://www.114chn.com/',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=11&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=13&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=14&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=15&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=21&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=22&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=23&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=32&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=33&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=34&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=35&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=36&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=37&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=41&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=42&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=43&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=44&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=45&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=46&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=50&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=51&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=52&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=53&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=54&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=61&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=62&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=63&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=64&pattern=2&page=1',
-        'http://search.114chn.com/searchresult.aspx?type=1&key=%E5%B7%A5%E4%B8%9A&areaid=65&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=11&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=13&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=14&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=15&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=21&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=22&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=23&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=32&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=33&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=34&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=35&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=36&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=37&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=41&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=42&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=43&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=44&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=45&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=46&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=50&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=51&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=52&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=53&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=54&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=61&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=62&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=63&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=64&pattern=2&page=1',
+        'http://search.114chn.com/searchresult.aspx?type=1&areaid=65&pattern=2&page=1',
     )
 
     rules = (
@@ -88,11 +88,25 @@ class A114chnSpider(CrawlSpider):
         
         #contact = sel.xpath('//div[@class="bor-t"]/span/text()').extract()[0]
         contact = ''.join(sel.xpath('//table[@class="tablebg"]//text()').extract())
-        #print name
-        #print contact
-        item["contact"] = self.cleanText(contact)
         
+        if len(contact) == 0:
+            contact = ''.join(sel.xpath('//div[@id="lianxi-whole"]//text()').extract())
+
+        if len(contact) == 0:
+            contact = ''.join(sel.xpath('//div[@id="sidenei"]//text()').extract())
+        
+        item["contact"] = self.cleanText(contact)
+
+
         name = sel.xpath('//span[@id="lblCompanyName"]/text()').extract()
+
+        if len(name) == 0:
+            name = ''.join(sel.xpath('//div[@id="banner"]//text()').extract())
+
+        if len(name) == 0:
+            name = ''.join(sel.xpath('//div[@calss="title"]//text()').extract())
+
+        
         item["name"] = name
 
         #return item
