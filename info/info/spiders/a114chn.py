@@ -86,13 +86,14 @@ class A114chnSpider(CrawlSpider):
         sel = Selector(response)
         item = InfoItem()
         
-        #name = sel.xpath('//span[@class="company-name fl"]/text()').extract()[0]
         #contact = sel.xpath('//div[@class="bor-t"]/span/text()').extract()[0]
-        name = ''.join(sel.xpath('//table[@class="tablebg"]//text()').extract())
+        contact = ''.join(sel.xpath('//table[@class="tablebg"]//text()').extract())
         #print name
         #print contact
-        item["name"] = self.cleanText(name)
-        #item["contact"] = contact.encode('utf-8')
+        item["contact"] = self.cleanText(contact)
+        
+        name = sel.xpath('//span[@id="lblCompanyName"]/text()').extract()
+        item["name"] = name
 
         #return item
         yield item
