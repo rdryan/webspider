@@ -93,7 +93,7 @@ class A114chnSpider(CrawlSpider):
             contact = ''.join(sel.xpath('//div[@id="lianxi-whole"]//text()').extract())
 
         if len(contact) == 0:
-            contact = ''.join(sel.xpath('//div[@id="sidenei"]//text()').extract())
+            contact = ''.join(sel.xpath('//div[@class="sidenei"]//text()').extract())
         
         item["contact"] = self.cleanText(contact)
 
@@ -104,10 +104,9 @@ class A114chnSpider(CrawlSpider):
             name = ''.join(sel.xpath('//div[@id="banner"]//text()').extract())
 
         if len(name) == 0:
-            name = ''.join(sel.xpath('//div[@calss="title"]//text()').extract())
+            name = ''.join(sel.xpath('//div[@class="title"]//text()').extract())
 
-        
-        item["name"] = name
+        item["name"] = self.cleanText(name)
 
         #return item
         yield item
