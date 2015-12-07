@@ -13,21 +13,30 @@ class FindworkSpider(scrapy.Spider):
         'https://www.upwork.com/o/jobs/browse/?q=python',
     )
 
-    driver = webdriver.PhantomJS()
+    service_args = [
+        '--ignore-ssl-errors=true',
+        #'--ssl-protocol=TLSv1',
+    ]
+    driver = webdriver.PhantomJS(service_args=service_args)
+    #driver = webdriver.Chrome()
     
 
     def parse(self, response):
         self.driver.get(response.url)
         sel = Selector(text=self.driver.page_source)
 
-        print self.driver.page_source
+        #print self.driver.page_source
 
-        
         articles = sel.xpath('//article[contains(@class,"job-tile")]')
-
+        item = UpworkItem()
+        
         for article in articles:
             header = ''.join(article.xpath('//header//text()').extract())
-            print header
+            
+            item['jobtitle'] = header.strip()
 
-        print "this is a test===="
-        pass
+        
+        yield item
+
+        self.driver.quit()
+        #pass
