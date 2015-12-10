@@ -33,7 +33,7 @@ class FindworkSpider(scrapy.Spider):
         for article in articles:
             header = ''.join(article.xpath('//header//text()').extract())
             
-            item['jobtitle'] = header.strip()
+            item['jobtitle'] = header.replace("\s",'').replace("\n",'').strip()
 
         
         yield item
