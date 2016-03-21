@@ -8,9 +8,9 @@ class McgrathSpiderSpider(scrapy.Spider):
     allowed_domains = ["mcgrath.com.au"]
     start_urls = (
         #'http://www.mcgrath.com.au/',
-        'https://www.mcgrath.com.au/rent/offices/nsw/sutherland-shire/engadine/47462',
         'https://www.mcgrath.com.au/rent/offices/nsw/sutherland-shire/engadine/47463',
         'https://www.mcgrath.com.au/rent/offices/nsw/sutherland-shire/engadine/47464',
+        'https://www.mcgrath.com.au/rent/offices/nsw/sutherland-shire/engadine/47465',
     )
 
     def parse(self, response):
